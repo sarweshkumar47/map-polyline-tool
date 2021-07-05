@@ -1,5 +1,41 @@
-p {
+.side-bar-view {
     width: 30vw;
     height: 93.3vh;
-    background-color: #484848;
+    background-color: #424242;
+    color: rgb(255, 174, 0);
 }
+
+.button-row {
+    margin: 16px;
+    color: black;
+    font-size: large;
+    background-color: #eeeeee;
+}
+
+.text-row {
+    margin: 16px 16px 8px 16px;
+    color: rgb(255, 255, 255);
+    font-size: medium;
+}
+
+.cdk-viewport {
+    height: 70vh;
+    width: 28vw;
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin:0 auto;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.item {
+    height: 24px;
+    margin: 4px 0 2px 0;
+    color: snow;
+    text-align: center;
+    font-size: medium;
+    /* border-bottom: 1px dashed #aaa; */
+}
+  

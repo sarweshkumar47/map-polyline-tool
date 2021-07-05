@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { ScrollingModule } from '@angular/cdk/scrolling';
  
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MainContentComponent } from './main-content/main-content.component';
@@ -22,7 +24,9 @@ import { SidebarViewComponent } from './main-content/sidebar-view/sidebar-view.c
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
