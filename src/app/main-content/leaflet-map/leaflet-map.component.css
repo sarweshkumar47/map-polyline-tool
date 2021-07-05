@@ -1,5 +1,13 @@
-p {
-    height: 93.3vh;
+.map-container {
+    /* height: 93.3vh; */
     width: 70vw;
-    background-color: darkgray;
+    height: 100%;
+    position: relative;
+    vertical-align: bottom;
+    z-index: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    
 }
+
