@@ -1,37 +1,74 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import * as L from 'leaflet';
+import { MapDataService } from 'src/app/shared/map-data.service';
+import { BehaviorSubject } from 'rxjs';
+import { ACTION } from 'src/app/shared/app-constants';
 
 @Component({
   selector: 'app-sidebar-view',
   templateUrl: './sidebar-view.component.html',
   styleUrls: ['./sidebar-view.component.css']
 })
-export class SidebarViewComponent implements OnInit {
+export class SidebarViewComponent implements OnInit, OnDestroy {
 
-  observableData = new BehaviorSubject<number[]>([]);
-  items: Array<Number>;
+  observableData = new BehaviorSubject<L.Latlng[]>([]);
+  mouseCursor = 'Move cursor';
+  mapCenter;
+  zoom: number;
+  observableMapData;
 
-  constructor() { }
+  constructor(private mapDataService: MapDataService) { }
 
   ngOnInit(): void {
+    this.subscribeToMapEvents();
   }
 
   clearMap() {
-    throw new Error("not Implemented");
+    this.mapDataService.clearDataPoints();
   }
 
   deleteLastDataPoint() {
-    throw new Error("not Implemented");
+    this.mapDataService.deleteLastDataPoint()
   }
 
   closeShape() {
-    throw new Error("not Implemented");
+    this.mapDataService.closeShape();
   }
 
-  emitData() {
-    console.log("Emit data")
-    const items = Array(1).fill(0).map(() => Math.round(Math.random() * 100));
-    const data = this.observableData.value.concat(items);
-    this.observableData.next(data);
+  subscribeToMapEvents() {
+    this.mapDataService.getMapMouseOverEmitter().subscribe((event)  => {
+      this.mouseCursor = (event as L.MouseEvent).latlng.lat + ', ' + (event as L.MouseEvent).latlng.lng;
+    });
+
+    this.mapDataService.getMapCenterChangeEmitter().subscribe(event => {
+      this.mapCenter = (event as L.latlng).lat + ', ' + (event as L.latlng).lng;
+    });
+
+    this.mapDataService.getMapZoomLevelEmitter().subscribe(event => {
+      this.zoom = event as number;
+    });
+
+    this.mapDataService.getMapDataPointEmitter().subscribe(dataPoint => {
+      
+      switch(dataPoint.action) {
+        case ACTION.ADD:
+          var data = this.observableData.value.concat(dataPoint.latlng);
+          this.observableData.next(data);
+          break;
+
+        case ACTION.REMOVE:
+          var data = this.observableData.value.slice(0, -1);
+          this.observableData.next(data);
+          break;
+          
+        case ACTION.CLEAR:
+          var data = this.observableData.value.slice(0, 0);
+          this.observableData.next(data);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    console.log("ng onDestroy() leaflet");
   }
 }

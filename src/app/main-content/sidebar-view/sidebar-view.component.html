@@ -6,17 +6,15 @@
 
     <button class="button-row" mat-raised-button (click)="closeShape()">Close shape</button>
 
-    <p class="text-row">Map center : 12.01, 77.57</p>
+    <p class="text-row">Map center : {{ mapCenter }}</p>
 
-    <p class="text-row">Zoom level : 10</p>
+    <p class="text-row">Zoom level : {{ zoom }}</p>
 
-    <p class="text-row">Mouse cursor : 13.01, 77.57</p>
-
-    <button (click)="emitData()">Add item</button>
+    <p class="text-row">Mouse cursor : {{ mouseCursor }}</p>
     
     <cdk-virtual-scroll-viewport class="cdk-viewport" [itemSize]="20">
         <div *cdkVirtualFor="let item of observableData | async; let i = index; templateCacheSize: 0" class="item">
-          Item #{{i}}: {{item}}
+          {{item.lat}} , {{item.lng}}
         </div>
       </cdk-virtual-scroll-viewport>
 
