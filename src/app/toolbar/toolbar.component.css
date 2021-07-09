@@ -7,3 +7,8 @@
 .toolbar-spacer {
     flex: 1 1 auto;
 }
+
+.dev-info {
+    color: darkgray;
+    font-size: medium;
+}

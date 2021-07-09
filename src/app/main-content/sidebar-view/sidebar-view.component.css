@@ -1,5 +1,5 @@
 .side-bar-view {
-    width: 30vw;
+    width: 27vw;
     height: 100%;
     background-color: #424242;
     color: rgb(255, 174, 0);
@@ -7,35 +7,37 @@
 
 .button-row {
     margin: 16px;
-    color: black;
     font-size: large;
-    background-color: #eeeeee;
 }
 
 .text-row {
     margin: 16px 16px 8px 16px;
-    color: rgb(255, 255, 255);
+    color: #ffd258;
     font-size: medium;
 }
 
 .cdk-viewport {
     height: 70vh;
-    width: 28vw;
+    width: 25vw;
     border: 1px solid grey;
     border-radius: 4px;
-    margin:0 auto;
+    margin:16px 16px 0 16px;
 }
 
 .cdk-virtual-scroll-content-wrapper {
     display: flex;
     flex-direction: column;
 }
+
 .item {
     height: 24px;
-    margin: 4px 0 2px 0;
-    color: snow;
-    text-align: center;
+    margin: 8px 0 4px 16px;
+    color: cyan;
     font-size: medium;
     /* border-bottom: 1px dashed #aaa; */
 }
   
+.dev-info {
+    color: lightgray; 
+    margin: 12px 0 0px 16px;
+}

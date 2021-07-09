@@ -14,7 +14,7 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 $map-polyline-tool-primary: mat-palette($mat-grey, 900, 500, 700) ;
-$map-polyline-tool-accent: mat-palette($mat-amber, 700, 300, 900);
+$map-polyline-tool-accent: mat-palette($mat-cyan, A100, 100, A400);
 
 // The warn palette is optional (defaults to red).
 $map-polyline-tool-warn: mat-palette($mat-red);
