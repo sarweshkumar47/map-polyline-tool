@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import * as L from 'leaflet';
+import { saveAs } from 'file-saver';
 import { DataPoint } from './data-point.model';
 import {ACTION} from './app-constants';
 
@@ -83,6 +84,27 @@ export class MapDataService {
 
   public getMapDataPointEmitter() {
     return this.mapDataPointEmitter;
+  }
+
+  public exportDataAsCSV() {
+    const blob = new Blob([(this.convertToCSV(this.getDataPoints()))], {type : 'application/csv'});
+    saveAs(blob, 'data.csv');
+  }
+
+  public exportDataAsJSON() {
+    const blob = new Blob([(this.convertToJSON(this.getDataPoints()))], {type : 'application/json'});
+    saveAs(blob, 'data.json');
+  }
+
+  private convertToCSV(dataArray) {
+    const array = [Object.keys(dataArray[0])].concat(dataArray);
+    return array.map(row => {
+      return Object.values(row);
+    }).join('\n');
+  }
+
+  private convertToJSON(dataArray) {
+    return JSON.stringify(dataArray);
   }
 }
  
