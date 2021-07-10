@@ -9,12 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { LeafletMapComponent } from './main-content/leaflet-map/leaflet-map.component';
 import { SidebarViewComponent } from './main-content/sidebar-view/sidebar-view.component';
-import { ExportDataComponent } from './toolbar/export-data/export-data.component'
+import { ExportDataComponent } from './toolbar/export-data/export-data.component';
+import { PolylineStyleOptionsComponent } from './main-content/sidebar-view/polyline-style-options/polyline-style-options.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ExportDataComponent } from './toolbar/export-data/export-data.component
     MainContentComponent,
     LeafletMapComponent,
     SidebarViewComponent,
-    ExportDataComponent
+    ExportDataComponent,
+    PolylineStyleOptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { ExportDataComponent } from './toolbar/export-data/export-data.component
     MatButtonModule,
     ScrollingModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

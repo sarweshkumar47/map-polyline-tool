@@ -16,6 +16,7 @@ export class SidebarViewComponent implements OnInit, OnDestroy {
   mapCenter;
   zoom: number;
   observableMapData;
+ show:boolean = false;
 
   constructor(private mapDataService: MapDataService) { }
 
@@ -35,7 +36,15 @@ export class SidebarViewComponent implements OnInit, OnDestroy {
     this.mapDataService.closeShape();
   }
 
-  subscribeToMapEvents() {
+  toggleStyleOptions() {
+    this.show = !this.show;
+  }
+
+  closeStyleViewEvent(event) {
+    this.show = false;
+  }
+
+  private subscribeToMapEvents() {
     this.mapDataService.getMapMouseOverEmitter().subscribe((event)  => {
       this.mouseCursor = (event as L.MouseEvent).latlng.lat + ', ' + (event as L.MouseEvent).latlng.lng;
     });
@@ -48,11 +57,11 @@ export class SidebarViewComponent implements OnInit, OnDestroy {
       this.zoom = event as number;
     });
 
-    this.mapDataService.getMapDataPointEmitter().subscribe(dataPoint => {
+    this.mapDataService.getMapActionEmitter().subscribe(event => {
       
-      switch(dataPoint.action) {
+      switch(event.action) {
         case ACTION.ADD:
-          var data = this.observableData.value.concat(dataPoint.latlng);
+          var data = this.observableData.value.concat(event.latlng);
           this.observableData.next(data);
           break;
 

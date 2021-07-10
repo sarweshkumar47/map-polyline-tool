@@ -2,7 +2,9 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { STREETMAP_TILE_LAYER, STREETMAP_ATTRIBUTION, ACTION } from 'src/app/shared/app-constants';
 import { SATALLITEMAP_TILE_LAYER, SATALLITEMAP_ATTRIBUTION } from 'src/app/shared/app-constants';
-import { DataPoint } from 'src/app/shared/data-point.model';
+import { MapActionEvent } from 'src/app/shared/map-action-event.model';
+
+
 import { MapDataService } from '../../shared/map-data.service';
 
 @Component({
@@ -58,26 +60,26 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   subscribeToMapEvents() {
-    this.mapDataService.getMapDataPointEmitter().subscribe(dataPoint => {
-      this.drawOrUpdateObjectsOnMap(dataPoint);
+    this.mapDataService.getMapActionEmitter().subscribe(mapActionEvent => {
+      this.drawOrUpdateObjectsOnMap(mapActionEvent);
     });
   }
 
-  drawOrUpdateObjectsOnMap(dataPoint: DataPoint) {
+  drawOrUpdateObjectsOnMap(mapActionEvent: MapActionEvent) {
+    
+    switch(mapActionEvent.action) {
 
-    switch(dataPoint.action) {
       case ACTION.ADD:
-        var marker = L.marker(dataPoint.latlng).addTo(this.leafletMap);
+        var marker = L.marker(mapActionEvent.latlng).addTo(this.leafletMap);
         this.dataMarkers.push(marker);
 
-        this.dataPoints.push(dataPoint.latlng);
+        this.dataPoints.push(mapActionEvent.latlng);
         if (this.dataPoints.length == 2) {
           this.polyline = L.polyline(this.dataPoints, this.polylineOptions).addTo(this.leafletMap);
         }
         else if (this.dataPoints.length > 2) {
-            this.polyline.addLatLng(dataPoint.latlng);
+            this.polyline.addLatLng(mapActionEvent.latlng);
         }
-
         break;
 
       case ACTION.REMOVE:
@@ -92,7 +94,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
           this.polyline.setLatLngs(this.dataPoints);
         }
         break;
-
+  
       case ACTION.CLEAR:
 
         this.dataMarkers.forEach(marker => {
@@ -104,6 +106,19 @@ export class LeafletMapComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.dataMarkers.length = 0;
         this.dataPoints.length = 0;
+
+        break;
+
+      case ACTION.UPDATE_STYLE:
+
+        this.polyline.setStyle({
+          color:  mapActionEvent.style.color,
+          opacity: mapActionEvent.style.opacity,
+          weight: mapActionEvent.style.weight
+        });
+        this.polylineOptions.color = mapActionEvent.style.color;
+        this.polylineOptions.smoothFactor = mapActionEvent.style.opacity;
+        this.polylineOptions.weight = mapActionEvent.style.weight;
 
         break;
     }

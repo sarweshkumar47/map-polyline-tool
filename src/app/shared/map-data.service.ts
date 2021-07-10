@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import * as L from 'leaflet';
 import { saveAs } from 'file-saver';
-import { DataPoint } from './data-point.model';
+import { MapActionEvent } from './map-action-event.model';
 import {ACTION} from './app-constants';
+import { BehaviorSubject } from 'rxjs';
+import { StyleOptions } from './style-options.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,13 @@ export class MapDataService {
   private onMapMouseOverEmitter = new Subject();
   private onMapZoomLevelEmitter = new Subject();
   private mapDataPoints: L.Latlng[] = [];
-  private mapDataPointEmitter = new Subject<DataPoint>();
-
+  private mapActionEventEmitter = new Subject<MapActionEvent>();
+  private styleOptionsEventEmitter = new BehaviorSubject<StyleOptions>({
+    color: '#cf0500',
+    opacity: 1,
+    weight: 4
+  });
+ 
   constructor() {}
 
   public onMapClick(event) {
@@ -28,7 +35,7 @@ export class MapDataService {
   }
 
   public onMapMouseOver(event) {
-    this.onMapMouseOverEmitter.next(event)
+    this.onMapMouseOverEmitter.next(event);
   }
 
   public onMapZoomLevelChanged(zoom: number) {
@@ -37,6 +44,14 @@ export class MapDataService {
 
   public onMapCenterChanged(center: L.LatLng) {
     this.onMapCenterChangeEmitter.next(center);
+  }
+
+  public getStyleOptionsEventEmitter() {
+    return this.styleOptionsEventEmitter;
+  }
+
+  public getMapActionEmitter() {
+    return this.mapActionEventEmitter;
   }
 
   public getMapMouseOverEmitter() {
@@ -57,12 +72,12 @@ export class MapDataService {
 
   public deleteLastDataPoint() {
     this.mapDataPoints.pop();
-    this.mapDataPointEmitter.next({ action: ACTION.REMOVE })
+    this.mapActionEventEmitter.next({ action: ACTION.REMOVE });
   }
 
   public clearDataPoints() {
     this.mapDataPoints.length = 0;
-    this.mapDataPointEmitter.next({ action: ACTION.CLEAR })
+    this.mapActionEventEmitter.next({ action: ACTION.CLEAR });
   }
 
   public closeShape() {
@@ -70,20 +85,24 @@ export class MapDataService {
     this.isPolyline = false;
   }
 
+  public updateStyles(event: MapActionEvent) {
+    this.mapActionEventEmitter.next(event);
+  }
+
+  public saveStyles(options: StyleOptions) {
+    this.styleOptionsEventEmitter.next(options);
+  }
+
   private addDataPoint(event: L.MouseEvent) {
     var item: L.Latlng = event.latlng;
     this.mapDataPoints.push(item);
-    this.mapDataPointEmitter.next({ action: ACTION.ADD, latlng: item });
+    this.mapActionEventEmitter.next({ action: ACTION.ADD, latlng: item });
   }
 
   private convertPolylineToPolygon() {
     var first = this.mapDataPoints[0];
     this.mapDataPoints.push(first);
-    this.mapDataPointEmitter.next({ action: ACTION.ADD, latlng: first });
-  }
-
-  public getMapDataPointEmitter() {
-    return this.mapDataPointEmitter;
+    this.mapActionEventEmitter.next({action: ACTION.ADD, latlng: first});
   }
 
   public exportDataAsCSV() {

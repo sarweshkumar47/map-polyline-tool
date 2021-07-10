@@ -1,0 +1,35 @@
+<div class="opened">
+
+  <p class="close" (click)="closeStyleOptionsView()">&times;</p>
+
+  <div class="summary-info">
+    <div class="info">
+      <p class="style">Selected color</p>
+      <p class="style-value">{{ selectedColor }}</p>
+    </div>
+    <div class="circle" [ngStyle]="{'background': color}"></div>
+  </div>
+  
+  <br>
+  <h3>Stroke Color</h3>
+  <div class="colors">
+    <div (click)="changeColor(paint)" *ngFor="let paint of listOfColors" class="circle"
+    [ngStyle]="{'background': paint}" ></div>
+  </div>
+
+  <br>
+  <h3>Stroke Opacity</h3>
+  <mat-slider color="primary" #strokeOpacity 
+  [thumbLabel]="true" min="0" max="1" step="0.1" [value]="strokeOpacitySliderSetValue" 
+  (change)="updateStrokeOpacity($event)"></mat-slider>
+
+  <br><br>
+  <h3>Stroke Weight</h3>
+  <mat-slider color="primary" #strokeWeight
+  [thumbLabel]="true" min="0" max="20" step="1" [value]="strokeWeightSliderSetValue" 
+  (change)="updateStrokeWeight($event)"></mat-slider>
+
+  <br><br>
+  <p>Click on save to apply the changes</p>
+  <button mat-raised-button color="primary" (click)="saveStyleOptions()">Save</button>
+</div>

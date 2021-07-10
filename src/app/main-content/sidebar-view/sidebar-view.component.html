@@ -6,12 +6,16 @@
 
     <button class="button-row" color="accent" mat-raised-button (click)="closeShape()">Close shape</button>
 
+    <button class="button-row" color="accent" mat-raised-button (click)="toggleStyleOptions()">Polyline style</button>
+
+    <app-polyline-style-options *ngIf="show" (styleViewCloseEvent)="closeStyleViewEvent($event)"></app-polyline-style-options>
+
     <p class="text-row"><b>Map center   :</b> {{ mapCenter }}</p>
 
     <p class="text-row"><b>Zoom level   :</b> {{ zoom }}</p>
 
     <p class="text-row"><b>Mouse cursor :</b> {{ mouseCursor }}</p>
-    
+
     <cdk-virtual-scroll-viewport class="cdk-viewport" [itemSize]="20">
         <div *cdkVirtualFor="let item of observableData | async; let i = index; templateCacheSize: 0" class="item">
           {{item.lat}} , {{item.lng}}
