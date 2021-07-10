@@ -15,10 +15,10 @@ import { MapDataService } from '../../shared/map-data.service';
 export class LeafletMapComponent implements OnInit, AfterViewInit {
 
   private leafletMap: L.Map;
-  private mapCenter: L.LatLngExpression = [30.73, 76.78];
-  private defaultZoom = 5;
+  private mapCenter: L.LatLngExpression = [18.51, 80.81];
+  private defaultZoom = 4;
   private minZoom = 2;
-  private maxZoom = 20;
+  private maxZoom = 18;
   private zoomControl = true;
   private polylineOptions = { color: 'red', smoothFactor: 1, weight: 4 };
   private polyline: L.Polyline;
@@ -32,7 +32,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
 
   constructor(private mapDataService: MapDataService) { }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void { }
 
   public ngAfterViewInit(): void {
     this.initMap();
@@ -53,7 +53,7 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
 
   private setupMapLayers(map: L.Map) {
     L.control.layers(this.baseLayers, null, { collapsed: true }).addTo(map);
-    this.baseLayers["Satellite"].addTo(map);
+    this.baseLayers["Street"].addTo(map);
   }
 
   private initMapEvents() {
