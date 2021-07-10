@@ -82,7 +82,6 @@ export class MapDataService {
 
   public closeShape() {
     this.convertPolylineToPolygon();
-    this.isPolyline = false;
   }
 
   public updateStyles(event: MapActionEvent) {
@@ -110,9 +109,14 @@ export class MapDataService {
   }
 
   private convertPolylineToPolygon() {
-    var first = this.mapDataPoints[0];
-    this.mapDataPoints.push(first);
-    this.mapActionEventEmitter.next({ action: ACTION.ADD, latlng: first });
+    // Append the first datapoint to the end of the array when 
+    // length of the array is > 2
+    if (this.mapDataPoints.length > 2) {
+      var first = this.mapDataPoints[0];
+      this.mapDataPoints.push(first);
+      this.mapActionEventEmitter.next({ action: ACTION.ADD, latlng: first });
+      this.isPolyline = false;
+    }
   }
 
   private convertToCSV(dataArray) {
