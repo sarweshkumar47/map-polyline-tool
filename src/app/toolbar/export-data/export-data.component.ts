@@ -10,15 +10,14 @@ export class ExportDataComponent implements OnInit {
 
   constructor(private mapDataService: MapDataService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  exportAsJSON(event) {
+  public exportAsJSON(event) {
     this.mapDataService.exportDataAsJSON();
   }
 
-  exportAsCSV(event) {
+  public exportAsCSV(event) {
     this.mapDataService.exportDataAsCSV();
   }
-
 }

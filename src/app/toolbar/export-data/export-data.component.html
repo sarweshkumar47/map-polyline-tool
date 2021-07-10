@@ -1,12 +1,8 @@
 <div class="export-data-options">
-    <button mat-stroked-button 
-        color="accent"
-        [matMenuTriggerFor]="menu" 
-        style="font-size: large;">Export As
-
+    <button mat-stroked-button color="accent" [matMenuTriggerFor]="menu" style="font-size: large;">Export As
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="exportAsJSON($event)">JSON</button>
         <button mat-menu-item (click)="exportAsCSV($event)">CSV</button>
     </mat-menu>
-</div>     
+</div>

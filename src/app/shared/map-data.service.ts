@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import * as L from 'leaflet';
 import { saveAs } from 'file-saver';
 import { MapActionEvent } from './map-action-event.model';
-import {ACTION} from './app-constants';
+import { ACTION } from './app-constants';
 import { BehaviorSubject } from 'rxjs';
 import { StyleOptions } from './style-options.model';
 
@@ -11,7 +11,7 @@ import { StyleOptions } from './style-options.model';
   providedIn: 'root'
 })
 export class MapDataService {
-  
+
   private isPolyline: boolean = true;
   private onMapCenterChangeEmitter = new Subject();
   private onMapMouseOverEmitter = new Subject();
@@ -23,8 +23,8 @@ export class MapDataService {
     opacity: 1,
     weight: 4
   });
- 
-  constructor() {}
+
+  constructor() { }
 
   public onMapClick(event) {
     if (!this.isPolyline) {
@@ -46,8 +46,8 @@ export class MapDataService {
     this.onMapCenterChangeEmitter.next(center);
   }
 
-  public getStyleOptionsEventEmitter() {
-    return this.styleOptionsEventEmitter;
+  public getDataPoints() {
+    return this.mapDataPoints;
   }
 
   public getMapActionEmitter() {
@@ -66,8 +66,8 @@ export class MapDataService {
     return this.onMapCenterChangeEmitter;
   }
 
-  public getDataPoints() {
-    return this.mapDataPoints;
+  public getStyleOptionsEventEmitter() {
+    return this.styleOptionsEventEmitter;
   }
 
   public deleteLastDataPoint() {
@@ -93,6 +93,16 @@ export class MapDataService {
     this.styleOptionsEventEmitter.next(options);
   }
 
+  public exportDataAsCSV() {
+    const blob = new Blob([(this.convertToCSV(this.getDataPoints()))], { type: 'application/csv' });
+    saveAs(blob, 'data.csv');
+  }
+
+  public exportDataAsJSON() {
+    const blob = new Blob([(this.convertToJSON(this.getDataPoints()))], { type: 'application/json' });
+    saveAs(blob, 'data.json');
+  }
+
   private addDataPoint(event: L.MouseEvent) {
     var item: L.Latlng = event.latlng;
     this.mapDataPoints.push(item);
@@ -102,17 +112,7 @@ export class MapDataService {
   private convertPolylineToPolygon() {
     var first = this.mapDataPoints[0];
     this.mapDataPoints.push(first);
-    this.mapActionEventEmitter.next({action: ACTION.ADD, latlng: first});
-  }
-
-  public exportDataAsCSV() {
-    const blob = new Blob([(this.convertToCSV(this.getDataPoints()))], {type : 'application/csv'});
-    saveAs(blob, 'data.csv');
-  }
-
-  public exportDataAsJSON() {
-    const blob = new Blob([(this.convertToJSON(this.getDataPoints()))], {type : 'application/json'});
-    saveAs(blob, 'data.json');
+    this.mapActionEventEmitter.next({ action: ACTION.ADD, latlng: first });
   }
 
   private convertToCSV(dataArray) {
@@ -126,4 +126,3 @@ export class MapDataService {
     return JSON.stringify(dataArray);
   }
 }
- 

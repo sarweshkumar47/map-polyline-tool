@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapDataService } from 'src/app/shared/map-data.service';
 import { BehaviorSubject } from 'rxjs';
@@ -8,44 +8,43 @@ import { ACTION } from 'src/app/shared/app-constants';
   selector: 'app-sidebar-view',
   templateUrl: './sidebar-view.component.html',
   styleUrls: ['./sidebar-view.component.css']
-})
-export class SidebarViewComponent implements OnInit, OnDestroy {
+}) 
+export class SidebarViewComponent implements OnInit {
 
-  observableData = new BehaviorSubject<L.Latlng[]>([]);
-  mouseCursor = 'Move cursor';
-  mapCenter;
-  zoom: number;
-  observableMapData;
- show:boolean = false;
+  public observableData = new BehaviorSubject<L.Latlng[]>([]);
+  public mouseCursor = 'Move cursor';
+  public mapCenter;
+  public zoom: number;
+  public show: boolean = false;
 
   constructor(private mapDataService: MapDataService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subscribeToMapEvents();
   }
 
-  clearMap() {
+  public clearMap() {
     this.mapDataService.clearDataPoints();
   }
 
-  deleteLastDataPoint() {
+  public deleteLastDataPoint() {
     this.mapDataService.deleteLastDataPoint()
   }
 
-  closeShape() {
+  public closeShape() {
     this.mapDataService.closeShape();
   }
 
-  toggleStyleOptions() {
+  public toggleStyleOptions() {
     this.show = !this.show;
   }
 
-  closeStyleViewEvent(event) {
+  public closeStyleViewEvent(event) {
     this.show = false;
   }
 
   private subscribeToMapEvents() {
-    this.mapDataService.getMapMouseOverEmitter().subscribe((event)  => {
+    this.mapDataService.getMapMouseOverEmitter().subscribe((event) => {
       this.mouseCursor = (event as L.MouseEvent).latlng.lat + ', ' + (event as L.MouseEvent).latlng.lng;
     });
 
@@ -58,8 +57,8 @@ export class SidebarViewComponent implements OnInit, OnDestroy {
     });
 
     this.mapDataService.getMapActionEmitter().subscribe(event => {
-      
-      switch(event.action) {
+
+      switch (event.action) {
         case ACTION.ADD:
           var data = this.observableData.value.concat(event.latlng);
           this.observableData.next(data);
@@ -69,15 +68,11 @@ export class SidebarViewComponent implements OnInit, OnDestroy {
           var data = this.observableData.value.slice(0, -1);
           this.observableData.next(data);
           break;
-          
+
         case ACTION.CLEAR:
           var data = this.observableData.value.slice(0, 0);
           this.observableData.next(data);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    console.log("ng onDestroy() leaflet");
   }
 }

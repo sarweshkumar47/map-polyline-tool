@@ -71,16 +71,6 @@ p.style-value {
   border-radius: 4px;
 }
 
-.outer-circle {
-  width: 45px;
-  height: 45px;
-  box-sizing: border-box;
-  border-radius: 100%;
-  cursor: pointer;
-  border: 1px solid #ff0000;
-  margin: 4px auto;
-}
-
 .circle {
   width: 40px;
   height: 40px;
@@ -95,10 +85,6 @@ p.style-value {
 h3 {
   color: darkblue;
 }
- 
-.circle:nth-child(5n) {  
-  /* margin: 0; */
-}
 
 mat-slider {
   width: 10vw;
@@ -107,80 +93,3 @@ mat-slider {
   background: rgb(250, 250, 250);
   border-radius: 4px;
 }
-
-
-      /* nth-child(5n) {
-        margin-right: 0;
-      }
-     */
-
-  /* .opened {
-    box-shadow: 0 7px 13px 0 rgba(86, 95, 102, 0.07);
-    background: #fff;
-    max-width: 240px;
-    padding: 15px;
-    border-radius: $radius;
-    position: relative;
-    margin-top: 15px;
-    &:after {
-      border: 10px solid transparent;
-      border-bottom: 10px solid #fff;
-      content: '';
-      right: 10px;
-      position: absolute;
-      top: -20px;
-    }
-
-    .colors {
-      display: flex;
-      flex-wrap: wrap;
-
-      .circle {
-        flex: 40px 0 0;
-        margin-right: 10px;
-        margin-bottom: 10px;
-
-        &:nth-child(5n) {
-          margin-right: 0;
-        }
-      }
-    }
-
-    .hex-code {
-      $height: 45px;
-      display: flex;
-      margin-top: 20px;
-
-      p {
-        width: 50%;
-        text-align: center;
-        font-size: 10px;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        line-height: $height;
-      }
-
-      .g-input {
-        border: 1px solid #e8ebed;
-        height: $height;
-        border-radius: $radius;
-        width: 120px;
-
-        input {
-          border: none;
-          width: 100%;
-          text-transform: uppercase;
-          outline: none;
-          text-align: center;
-          letter-spacing: 1.5px;
-          color: #595b65;
-          height: 100%;
-          border-radius: $radius;
-          margin: 0;
-          padding: 0;
-        }
-      }
-
-    }
-  }
-} */

@@ -21,7 +21,7 @@
     width: 25vw;
     border: 1px solid grey;
     border-radius: 4px;
-    margin:16px 16px 0 16px;
+    margin: 16px 16px 0 16px;
 }
 
 .cdk-virtual-scroll-content-wrapper {
@@ -34,10 +34,9 @@
     margin: 8px 0 4px 16px;
     color: cyan;
     font-size: medium;
-    /* border-bottom: 1px dashed #aaa; */
 }
-  
+
 .dev-info {
-    color: lightgray; 
+    color: lightgray;
     margin: 12px 0 0px 16px;
 }

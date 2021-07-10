@@ -16,7 +16,7 @@ import { MainContentComponent } from './main-content/main-content.component';
 import { LeafletMapComponent } from './main-content/leaflet-map/leaflet-map.component';
 import { SidebarViewComponent } from './main-content/sidebar-view/sidebar-view.component';
 import { ExportDataComponent } from './toolbar/export-data/export-data.component';
-import { PolylineStyleOptionsComponent } from './main-content/sidebar-view/polyline-style-options/polyline-style-options.component'
+import { PolylineStyleOptionsComponent } from './main-content/sidebar-view/polyline-style-options/polyline-style-options.component';
 
 @NgModule({
   declarations: [

@@ -39,25 +39,23 @@ export class PolylineStyleOptionsComponent implements OnInit {
     '#c1800b'
   ];
 
-  public selectedColor: string;
   @Input() color: string;
   @Output() styleViewCloseEvent = new EventEmitter<boolean>();
-
-  public userSetColor;
+  public selectedColor: string;
   public strokeOpacitySliderValue;
   public strokeWeightSliderValue;
   public strokeOpacitySliderSetValue;
   public strokeWeightSliderSetValue;
+  private userSetColor;
 
   constructor(private mapDataService: MapDataService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subscribeToEvents();
   }
 
-  subscribeToEvents() {
+  private subscribeToEvents() {
     this.mapDataService.getStyleOptionsEventEmitter().subscribe(options => {
-      console.log(options);
       this.color = options.color;
       this.selectedColor = options.color;
       this.userSetColor = options.color;
@@ -68,8 +66,7 @@ export class PolylineStyleOptionsComponent implements OnInit {
     });
   }
 
-  closeStyleOptionsView() {
-    
+  public closeStyleOptionsView() {
     this.styleViewCloseEvent.emit(true);
     let style: StyleOptions = {
       'color': this.userSetColor,

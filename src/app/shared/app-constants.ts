@@ -7,4 +7,4 @@ export const SATALLITEMAP_ATTRIBUTION = 'Tiles &copy; Esri &mdash; Source: Esri,
 export const WIKIMEDIAMAP_TILE_LAYER = 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png';
 export const WIKIMEDIA_ATTRIBUTION = '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>';
 
-export enum ACTION {ADD, REMOVE, CLEAR, UPDATE_STYLE};
+export enum ACTION { ADD, REMOVE, CLEAR, UPDATE_STYLE };

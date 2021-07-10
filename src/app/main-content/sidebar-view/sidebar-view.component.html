@@ -1,27 +1,29 @@
 <div class="side-bar-view">
-    
-    <button class="button-row" color="accent" mat-raised-button (click)="clearMap()">Clear Map</button>
 
-    <button class="button-row" color="accent" mat-raised-button (click)="deleteLastDataPoint()">Undo</button>
+  <button class="button-row" color="accent" mat-raised-button (click)="clearMap()">Clear Map</button>
 
-    <button class="button-row" color="accent" mat-raised-button (click)="closeShape()">Close shape</button>
+  <button class="button-row" color="accent" mat-raised-button (click)="deleteLastDataPoint()">Undo</button>
 
-    <button class="button-row" color="accent" mat-raised-button (click)="toggleStyleOptions()">Polyline style</button>
+  <button class="button-row" color="accent" mat-raised-button (click)="closeShape()">Close shape</button>
 
-    <app-polyline-style-options *ngIf="show" (styleViewCloseEvent)="closeStyleViewEvent($event)"></app-polyline-style-options>
+  <button class="button-row" color="accent" mat-raised-button (click)="toggleStyleOptions()">Polyline style</button>
 
-    <p class="text-row"><b>Map center   :</b> {{ mapCenter }}</p>
+  <app-polyline-style-options *ngIf="show" (styleViewCloseEvent)="closeStyleViewEvent($event)">
+  </app-polyline-style-options>
 
-    <p class="text-row"><b>Zoom level   :</b> {{ zoom }}</p>
+  <p class="text-row"><b>Map center :</b> {{ mapCenter }}</p>
 
-    <p class="text-row"><b>Mouse cursor :</b> {{ mouseCursor }}</p>
+  <p class="text-row"><b>Zoom level :</b> {{ zoom }}</p>
 
-    <cdk-virtual-scroll-viewport class="cdk-viewport" [itemSize]="20">
-        <div *cdkVirtualFor="let item of observableData | async; let i = index; templateCacheSize: 0" class="item">
-          {{item.lat}} , {{item.lng}}
-        </div>
-      </cdk-virtual-scroll-viewport>
+  <p class="text-row"><b>Mouse cursor :</b> {{ mouseCursor }}</p>
 
-    <p class="dev-info">Created by<a class="dev-info" href="https://github.com/sarweshkumar47" target="_blank">Sarweshkumar C R</a></p>
+  <cdk-virtual-scroll-viewport class="cdk-viewport" [itemSize]="20">
+    <div *cdkVirtualFor="let item of observableData | async; let i = index; templateCacheSize: 0" class="item">
+      {{item.lat}} , {{item.lng}}
+    </div>
+  </cdk-virtual-scroll-viewport>
+
+  <p class="dev-info">Created by<a class="dev-info" href="https://github.com/sarweshkumar47"
+      target="_blank">Sarweshkumar C R</a></p>
 
 </div>
