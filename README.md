@@ -31,6 +31,16 @@ a fillable interior, while a polyline is open-ended.
 - [ ] Allow user to hide or show the markers on a map
 - [ ] Overlay separate label layer on satellite view
 
+
+# How to build
+
+In order to build the project, you need to have both `node` and `Angular CLI` installed on your machine. After cloning the project, run the following commands:
+
+    $ cd map-polyline-tool
+    $ npm install
+    $ ng serve
+
+
 # Credit
 
 ### Icons
