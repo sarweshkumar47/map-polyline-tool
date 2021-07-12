@@ -18,7 +18,8 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
   private mapCenter: L.LatLngExpression = [18.51, 80.81];
   private defaultZoom = 4;
   private minZoom = 2;
-  private maxZoom = 18;
+  private maxZoom = 21;
+  private maxNativeZoom = 19;
   private zoomControl = true;
   private polylineOptions = { color: 'red', smoothFactor: 1, weight: 4 };
   private polyline: L.Polyline;
@@ -26,8 +27,18 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
   private dataMarkers: L.Marker[] = [];
 
   private baseLayers = {
-    'Street': L.tileLayer(STREETMAP_TILE_LAYER, { attribution: STREETMAP_ATTRIBUTION }),
-    'Satellite': L.tileLayer(SATALLITEMAP_TILE_LAYER, { attribution: SATALLITEMAP_ATTRIBUTION })
+    'Street': L.tileLayer(STREETMAP_TILE_LAYER,
+      {
+        attribution: STREETMAP_ATTRIBUTION,
+        maxNativeZoom: this.maxNativeZoom,
+        maxZoom: this.maxZoom
+      }),
+    'Satellite': L.tileLayer(SATALLITEMAP_TILE_LAYER,
+      {
+        attribution: SATALLITEMAP_ATTRIBUTION,
+        maxNativeZoom: this.maxNativeZoom,
+        maxZoom: this.maxZoom
+      })
   };
 
   constructor(private mapDataService: MapDataService) { }
@@ -46,7 +57,6 @@ export class LeafletMapComponent implements OnInit, AfterViewInit {
       center: this.mapCenter,
       minZoom: this.minZoom,
       zoom: this.defaultZoom,
-      maxZoom: this.maxZoom,
       zoomControl: this.zoomControl
     });
   }
