@@ -8,3 +8,12 @@
     top: 0;
     left: 0;
 }
+
+
+.leaflet-grab {
+	cursor: auto;
+}
+
+.leaflet-dragging .leaflet-grab{
+	cursor: move;
+}
