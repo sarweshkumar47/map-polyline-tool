@@ -1,12 +1,12 @@
 <div class="side-bar-view">
 
-  <button class="button-row" color="accent" mat-raised-button (click)="clearMap()">Clear Map</button>
+  <button class="button-row" color="accent" mat-raised-button (click)="clearMap()">Clear map</button>
 
   <button class="button-row" color="accent" mat-raised-button (click)="deleteLastDataPoint()">Undo</button>
 
   <button class="button-row" color="accent" mat-raised-button (click)="closeShape()">Close shape</button>
 
-  <button class="button-row" color="accent" mat-raised-button (click)="toggleStyleOptions()">Polyline style</button>
+  <button class="button-row" color="accent" mat-raised-button (click)="toggleStyleOptions()">Style options</button>
 
   <app-polyline-style-options *ngIf="show" (styleViewCloseEvent)="closeStyleViewEvent($event)">
   </app-polyline-style-options>
